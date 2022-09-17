@@ -28,7 +28,7 @@ public class Exercise9 {
         }
     }
 
-    static class Circle implements Exercise10.Moveable {
+    static class Circle implements Exercise10.Moveable, Exercise11.Resizable {
 
         public static final double PI = 3.14;
         private double radius;
@@ -64,6 +64,13 @@ public class Exercise9 {
             this.center.setY(this.center.getY() + moveDirection.getY());
             this.point.setX(this.point.getX() + moveDirection.getX());
             this.point.setY(this.point.getY() + moveDirection.getY());
+            this.radius = calculateRadius();
+        }
+
+        @Override
+        public void resize(double resizeFactor) {
+            this.point.setX(this.point.getX()*resizeFactor);
+            this.point.setY(this.point.getY()*resizeFactor);
             this.radius = calculateRadius();
         }
     }
