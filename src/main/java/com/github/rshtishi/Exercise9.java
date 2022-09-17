@@ -28,9 +28,10 @@ public class Exercise9 {
         }
     }
 
-    static class Circle {
+    static class Circle implements Exercise10.Moveable {
 
         public static final double PI = 3.14;
+        private double radius;
 
         private Point2D center;
         private Point2D point;
@@ -38,23 +39,37 @@ public class Exercise9 {
         Circle(Point2D center, Point2D point) {
             this.center = center;
             this.point = point;
+            this.radius = calculateRadius();
         }
 
-        public double getRadius(){
-            return Math.sqrt(Math.pow(center.getX()-point.getX(),2)+Math.pow(center.getY()-point.getY(),2))/2;
+        private double calculateRadius(){
+            return Math.sqrt(Math.pow(center.getX() - point.getX(), 2) + Math.pow(center.getY() - point.getY(), 2)) / 2;
         }
 
-        public double getPerimeter(){
-            return 2*PI*getRadius();
+        public double getRadius() {
+            return radius;
         }
 
-        public double getArea(){
-            return PI*Math.pow(getRadius(),2);
+        public double getPerimeter() {
+            return 2 * PI * getRadius();
+        }
+
+        public double getArea() {
+            return PI * Math.pow(getRadius(), 2);
+        }
+
+        @Override
+        public void move(Exercise10.MoveDirection moveDirection) {
+            this.center.setX(this.center.getX() + moveDirection.getX());
+            this.center.setY(this.center.getY() + moveDirection.getY());
+            this.point.setX(this.point.getX() + moveDirection.getX());
+            this.point.setY(this.point.getY() + moveDirection.getY());
+            this.radius = calculateRadius();
         }
     }
 
     public static void main(String[] args) {
-        Circle circle = new Circle(new Point2D(1,1),new Point2D(1,5));
+        Circle circle = new Circle(new Point2D(1, 1), new Point2D(1, 5));
         System.out.println(circle.getRadius());
         System.out.println(circle.getPerimeter());
         System.out.println(circle.getArea());
