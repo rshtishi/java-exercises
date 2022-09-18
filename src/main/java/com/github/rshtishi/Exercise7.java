@@ -23,7 +23,7 @@ public class Exercise7 {
         }
 
         public boolean isLoaded() {
-            return magazine.isEmpty();
+            return !magazine.isEmpty();
         }
 
         public void shot(){
