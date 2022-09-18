@@ -14,9 +14,6 @@ public class Exercise1 {
         System.out.println(unorderedList);
         List<String> orderedList = reverseNaturalOrder(unorderedList);
         System.out.println(orderedList);
-        //List<String> list = new ArrayList<>(Arrays.asList(sentence.split("")));
-        //List<String> letters = orderLetters(sentence);
-        //System.out.println(letters);
     }
 
     private static List<String> reverseNaturalOrder(List<String> unorderedList) {
