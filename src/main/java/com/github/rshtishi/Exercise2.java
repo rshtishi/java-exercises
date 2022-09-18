@@ -1,25 +1,28 @@
 package com.github.rshtishi;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Exercise2 {
 
     public static void main(String[] args) {
 
-        List<String> names = Arrays.asList("John", "Jane", "Homer", "Judy","zeta");
-        System.out.println(names);
-        List<String> namesSorted = sortList(names);
-        System.out.println(namesSorted);
+        String sentence = "Hello World How are you doing";
+        String[] test = sentence.split("");
+        List<String> unorderedList= new ArrayList<>(Arrays.asList(test));
+        System.out.println(unorderedList);
+        List<String> orderedList = reverseNaturalOrder(unorderedList);
+        System.out.println(orderedList);
 
     }
 
-    private static List<String> sortList(List<String> list) {
-         Collections.sort(list, (s1,s2)->{
-             return s2.compareToIgnoreCase(s1);
-         });
-         return list;
+    private static List<String> reverseNaturalOrder(List<String> unorderedList) {
+        Stream<String> resultStream = unorderedList.stream().filter(s -> !s.equals(" "));
+        List<String> result = resultStream.collect(Collectors.toList());
+        Collections.sort(result, (o1,o2)-> o2.compareToIgnoreCase(o1) );
+        return result;
     }
+
+
 }
