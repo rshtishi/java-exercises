@@ -18,12 +18,10 @@ public class Exercise6 {
 
     private static void printFirstAndLastEntrySet(Map<Integer, String> map) {
 
-        Object[] keys = map.keySet().toArray();
-        if (keys.length > 0) {
-            Integer firstKey = (Integer) keys[0];
-            Integer lastKey = (Integer) keys[keys.length - 1];
-            System.out.println("First Entry:" + firstKey + "->" + map.get(firstKey));
-            System.out.println("Last Entry:" + lastKey + "->" + map.get(lastKey));
+        Object[] entryArray = map.entrySet().toArray();
+        if (entryArray.length > 0) {
+            System.out.println(entryArray[0]);
+            System.out.println(entryArray[entryArray.length - 1]);
         }
     }
 }
