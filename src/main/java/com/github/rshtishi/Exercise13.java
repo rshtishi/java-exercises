@@ -1,6 +1,7 @@
 package com.github.rshtishi;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Exercise13 {
@@ -44,6 +45,11 @@ public class Exercise13 {
             return this.carList;
         }
 
+        public List<Exercise12.Car> getCarByEngine(Exercise12.EngineType engineType) {
+            return carList.stream().filter(car -> car.getEngineType() == engineType)
+                    .collect(Collectors.toList());
+        }
+
         public List<Exercise12.Car> getCarsProducedBeforeYear(int year) {
             return carList.stream().filter(car -> car.getYearOfManufacture() < year).collect(Collectors.toList());
         }
@@ -52,12 +58,67 @@ public class Exercise13 {
             return carList.stream().min(Comparator.comparingDouble(Exercise12.Car::getPrice)).orElseThrow(NoSuchElementException::new);
         }
 
-        public Exercise12.Car getMostExpensiveCar(){
+        public Exercise12.Car getMostExpensiveCar() {
             return carList.stream().max(Comparator.comparingDouble(Exercise12.Car::getPrice)).orElseThrow(NoSuchElementException::new);
         }
 
-        public List<Exercise12.Car> getCarByTheNumberOfManufacture(int manufacturerNo){
-            return carList.stream().filter(car -> car.getManufacturerList()!=null && car.getManufacturerList().size()>3).collect(Collectors.toList());
+        public List<Exercise12.Car> getCarByTheNumberOfManufacture(int manufacturerNo) {
+            return carList.stream().filter(car -> car.getManufacturerList() != null && car.getManufacturerList().size() >= 3).collect(Collectors.toList());
+        }
+
+        public List<Exercise12.Car> getCarsSorted(String order) {
+            if (order.equals("ASC")) {
+                Collections.sort(carList, (o1, o2) -> {
+                    return o1.getYearOfManufacture() - o2.getYearOfManufacture();
+                });
+            }
+            if (order.equals("DESC")) {
+                Collections.sort(carList, (o1, o2) -> {
+                    return o2.getYearOfManufacture() - o1.getYearOfManufacture();
+                });
+            }
+            return carList;
+        }
+
+        public boolean isCarPresent(Exercise12.Car car) {
+            return carList.stream().anyMatch(c -> c.equals(car));
+        }
+
+        public List<Exercise12.Car> findCarsProducedBy(Exercise12.Manufacturer manufacturer) {
+            return carList.stream().filter(car -> car.getManufacturerList().contains(manufacturer))
+                    .collect(Collectors.toList());
+        }
+
+        public List<Exercise12.Car> findCarProducedByManufacturesWithYearOfEstablishment(String operator, int year) {
+            Predicate<Exercise12.Manufacturer> predicate;
+            switch (operator) {
+                case ">":
+                    predicate = manufacturer -> manufacturer.getYearOfEstablishment() > year;
+                    break;
+                case "<":
+                    predicate = manufacturer -> manufacturer.getYearOfEstablishment() < year;
+                    break;
+                case ">=":
+                    predicate = manufacturer -> manufacturer.getYearOfEstablishment() >= year;
+                    break;
+                case "<=":
+                    predicate = manufacturer -> manufacturer.getYearOfEstablishment() <= year;
+                    break;
+                case "==":
+                    predicate = manufacturer -> manufacturer.getYearOfEstablishment() == year;
+                    break;
+                case "!=":
+                    predicate = manufacturer -> manufacturer.getYearOfEstablishment() != year;
+                default:
+                    throw new IllegalArgumentException("Operator is illegal");
+            }
+            Optional<Exercise12.Manufacturer> possibleManufacture = carList.stream()
+                    .flatMap(car -> car.getManufacturerList().stream()).filter(predicate).findFirst();
+            if (possibleManufacture.isPresent()) {
+                return carList.stream().filter(car -> car.getManufacturerList().contains(possibleManufacture.get()))
+                        .collect(Collectors.toList());
+            }
+            return null;
         }
 
 
