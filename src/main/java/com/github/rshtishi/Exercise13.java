@@ -122,9 +122,34 @@ public class Exercise13 {
         }
 
 
+        public List<Exercise12.Car> getCarProducedByManufacturer(Exercise12.Manufacturer manufacturer) {
+            return carList.stream().filter(car -> car.getManufacturerList().contains(manufacturer)).collect(Collectors.toList());
+        }
     }
 
     public static void main(String[] args) {
-
+        Exercise12.Manufacturer VWManufacturer = new Exercise12.Manufacturer("volkwagen", 2011, "Germany");
+        CarService carService = new CarService();
+        System.out.println("Total No. of cars: " + carService.getCarList().size());
+        Exercise12.Car car = new Exercise12.Car("VolkWagen", "Tiguan", 35000, 2018, Arrays.asList(VWManufacturer), Exercise12.EngineType.V8);
+        carService.add(car);
+        System.out.println("After adding ww tiguan car, Total No. of cars: " + carService.getCarList().size());
+        carService.remove(car);
+        System.out.println("After remvoing ww tiguan car, Total No. of cars: " + carService.getCarList().size());
+        List<Exercise12.Car> v8Cars = carService.getCarByEngine(Exercise12.EngineType.V8);
+        System.out.println("Total No. of cars with V8 engine: " + v8Cars.size());
+        List<Exercise12.Car> carProducedBefore2016 = carService.getCarsProducedBeforeYear(2016);
+        System.out.println("Total No. of cars produced before 2016: " + carProducedBefore2016.size());
+        Exercise12.Car cheapestCar = carService.getCheapestCar();
+        System.out.println("Cheapest car: " + cheapestCar.getName() + "," + cheapestCar.getModel() + ", price: " + cheapestCar.getPrice());
+        Exercise12.Car expensiveCar = carService.getMostExpensiveCar();
+        System.out.println("Most expensive car: " + expensiveCar.getName() + " ," + expensiveCar.getModel() + " , price: " + expensiveCar.getPrice());
+        List<Exercise12.Car> carManufacturedByMoreThan3 = carService.getCarByTheNumberOfManufacture(3);
+        System.out.println("Total No. of cars produced by more than 3 manufactures: " + carManufacturedByMoreThan3.size());
+        System.out.println("Is Tigual WW in the car list: " + carService.isCarPresent(car));
+        List<Exercise12.Car> carManufactureByVW = carService.getCarProducedByManufacturer(VWManufacturer);
+        System.out.println("Total No. of cars produced by VW manufactuer: "+carManufactureByVW.size());
+        List<Exercise12.Car> carManufacturerByYearOfEstablishment = carService.findCarProducedByManufacturesWithYearOfEstablishment("==",2011);
+        System.out.println("Total No. of cars produced by manufactuer with year of establishment 2011: "+carManufacturerByYearOfEstablishment.size());
     }
 }
