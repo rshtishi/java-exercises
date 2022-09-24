@@ -75,8 +75,10 @@ public class Exercise9 {
 
         @Override
         public void resize(double resizeFactor) {
-            this.point.setX(this.point.getX() * resizeFactor);
-            this.point.setY(this.point.getY() * resizeFactor);
+            double dx = Math.abs(this.point.getX() - this.point.getX()*resizeFactor);
+            double dy = Math.abs(this.point.getY() - this.point.getY()*resizeFactor);
+            Exercise10.MoveDirection direction = new Exercise10.MoveDirection(dx, dy);
+            this.point.move(direction);
             this.radius = calculateRadius();
         }
 
