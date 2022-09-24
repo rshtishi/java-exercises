@@ -30,7 +30,7 @@ public class Exercise14 {
         System.out.println();
         System.out.println();
 
-        Map<Integer, Integer> map = Arrays.stream(array).boxed().collect(Collectors.toMap(Function.identity(), v -> 1, Integer::sum));
+        Map<Integer, Integer> map = Arrays.stream(array).boxed().collect(Collectors.toMap(key->key, v -> 1, (a,b) ->a+b));
         System.out.println(map);
 
         System.out.println();
