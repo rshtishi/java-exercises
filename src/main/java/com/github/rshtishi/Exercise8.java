@@ -62,7 +62,7 @@ public class Exercise8 {
 
         @Override
         public boolean validate(Parcel input) {
-            if (input.getxLength() >= 30 || input.getyLength() >= 30 || input.getzLength() >= 30
+            if (input.getxLength() <= 30 || input.getyLength() <= 30 || input.getzLength() <= 30
                     || Integer.sum(Integer.sum(input.getxLength(), input.getyLength()), input.getzLength()) <= 300) {
                 return false;
             }
@@ -80,7 +80,7 @@ public class Exercise8 {
 
         @Override
         public boolean validate(Parcel input) {
-            if (input.getxLength() >= 30 || input.getyLength() >= 30 || input.getzLength() >= 30) {
+            if (input.getxLength() <= 30 || input.getyLength() <= 30 || input.getzLength() <= 30) {
                 return false;
             }
             return true;
@@ -126,12 +126,16 @@ public class Exercise8 {
 
         for (Validator validator : validators) {
             isParcelValid = validator.validate(parcel);
-            if (isParcelValid) {
+            if (!isParcelValid) {
                 break;
             }
         }
 
         System.out.println(isParcelValid);
+
+        if(!isParcelValid){
+            throw new IllegalStateException("Invalid Parcel");
+        }
 
 
     }
