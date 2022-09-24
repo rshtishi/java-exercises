@@ -42,8 +42,11 @@ public class Exercise9 {
             this.radius = calculateRadius();
         }
 
-        private double calculateRadius(){
-            return Math.sqrt(Math.pow(center.getX() - point.getX(), 2) + Math.pow(center.getY() - point.getY(), 2)) / 2;
+        private double calculateRadius() {
+            double xVal = Math.pow(center.getX() - point.getX(), 2);
+            double yVal = Math.pow(center.getY() - point.getY(), 2);
+            double sum = xVal + yVal;
+            return Math.sqrt(sum);
         }
 
         public double getRadius() {
@@ -51,11 +54,11 @@ public class Exercise9 {
         }
 
         public double getPerimeter() {
-            return 2 * PI * getRadius();
+            return 2 * PI * radius;
         }
 
         public double getArea() {
-            return PI * Math.pow(getRadius(), 2);
+            return PI * Math.pow(radius, 2);
         }
 
         @Override
@@ -69,8 +72,18 @@ public class Exercise9 {
 
         @Override
         public void resize(double resizeFactor) {
-            this.point.setX(this.point.getX()*resizeFactor);
-            this.point.setY(this.point.getY()*resizeFactor);
+            this.point.setX(this.point.getX() * resizeFactor);
+            this.point.setY(this.point.getY() * resizeFactor);
+            this.radius = calculateRadius();
+        }
+
+        public void setPoint(Point2D point) {
+            this.point = point;
+            this.radius = calculateRadius();
+        }
+
+        public void setCenter(Point2D center) {
+            this.center = center;
             this.radius = calculateRadius();
         }
     }
