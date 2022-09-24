@@ -2,7 +2,7 @@ package com.github.rshtishi;
 
 public class Exercise9 {
 
-    static class Point2D {
+    static class Point2D implements Exercise10.Moveable {
         private double x;
         private double y;
 
@@ -25,6 +25,12 @@ public class Exercise9 {
 
         public void setY(double y) {
             this.y = y;
+        }
+
+        @Override
+        public void move(Exercise10.MoveDirection moveDirection) {
+            x+=moveDirection.getX();
+            y+=moveDirection.getY();
         }
     }
 
@@ -63,11 +69,8 @@ public class Exercise9 {
 
         @Override
         public void move(Exercise10.MoveDirection moveDirection) {
-            this.center.setX(this.center.getX() + moveDirection.getX());
-            this.center.setY(this.center.getY() + moveDirection.getY());
-            this.point.setX(this.point.getX() + moveDirection.getX());
-            this.point.setY(this.point.getY() + moveDirection.getY());
-            this.radius = calculateRadius();
+            this.center.move(moveDirection);
+            this.point.move(moveDirection);
         }
 
         @Override
