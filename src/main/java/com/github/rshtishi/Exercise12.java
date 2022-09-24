@@ -163,15 +163,9 @@ public class Exercise12 {
             boolean modelEquals = (this.model == null && other.getModel() == null) || (this.model != null && this.model.equals(other.getModel()));
             boolean priceEquals = this.price == other.getPrice();
             boolean yearOfManufactureEquals = this.yearOfManufacture == other.getYearOfManufacture();
-            boolean manufacturerListEquals = (this.manufacturerList == null && other.getManufacturerList() == null);
-            if (this.manufacturerList != null && other.getManufacturerList() != null) {
-                for (Manufacturer manufacturer : this.manufacturerList) {
-                    other.getManufacturerList().contains(manufacturer);
-                }
-            } else {
-                manufacturerListEquals = false;
-            }
+            boolean manufacturerListEquals = (this.manufacturerList == null && other.getManufacturerList() == null) || (this.manufacturerList!=null && this.manufacturerList.equals(other.getManufacturerList()));
             boolean engineTypeEquals = (this.engineType == null && other.getEngineType() == null) && (this.engineType.equals(other.getEngineType()));
+
             return nameEquals && modelEquals && priceEquals && yearOfManufactureEquals && manufacturerListEquals && engineTypeEquals;
         }
     }
