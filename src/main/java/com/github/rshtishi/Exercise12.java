@@ -164,7 +164,7 @@ public class Exercise12 {
             boolean priceEquals = this.price == other.getPrice();
             boolean yearOfManufactureEquals = this.yearOfManufacture == other.getYearOfManufacture();
             boolean manufacturerListEquals = (this.manufacturerList == null && other.getManufacturerList() == null) || (this.manufacturerList!=null && this.manufacturerList.equals(other.getManufacturerList()));
-            boolean engineTypeEquals = (this.engineType == null && other.getEngineType() == null) && (this.engineType.equals(other.getEngineType()));
+            boolean engineTypeEquals = (this.engineType == null && other.getEngineType() == null) || (this.engineType.equals(other.getEngineType()));
 
             return nameEquals && modelEquals && priceEquals && yearOfManufactureEquals && manufacturerListEquals && engineTypeEquals;
         }
