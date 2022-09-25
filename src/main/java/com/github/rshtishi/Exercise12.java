@@ -168,6 +168,18 @@ public class Exercise12 {
 
             return nameEquals && modelEquals && priceEquals && yearOfManufactureEquals && manufacturerListEquals && engineTypeEquals;
         }
+
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder("Car{");
+            sb.append("year='").append(yearOfManufacture).append('\'');
+            sb.append("name='").append(name).append('\'');
+            sb.append(", model='").append(model).append('\'');
+            sb.append(", price=").append(price);
+            sb.append(", engineType=").append(engineType);
+            sb.append('}');
+            return sb.toString();
+        }
     }
 
     public static void main(String[] args) {

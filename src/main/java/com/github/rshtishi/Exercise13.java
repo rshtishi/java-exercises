@@ -40,11 +40,11 @@ public class Exercise13 {
         }
 
         public Exercise12.Car getCheapestCar() {
-            return carList.stream().min(Comparator.comparingDouble(Exercise12.Car::getPrice)).orElseThrow(NoSuchElementException::new);
+            return carList.stream().min(Comparator.comparingDouble(car -> car.getPrice())).orElseThrow(NoSuchElementException::new);
         }
 
         public Exercise12.Car getMostExpensiveCar() {
-            return carList.stream().max(Comparator.comparingDouble(Exercise12.Car::getPrice)).orElseThrow(NoSuchElementException::new);
+            return carList.stream().max(Comparator.comparingDouble(Exercise12.Car::getPrice)).orElseThrow(()-> new NoSuchElementException());
         }
 
         public List<Exercise12.Car> getCarByTheNumberOfManufacture(int manufacturerNo) {
@@ -52,12 +52,12 @@ public class Exercise13 {
         }
 
         public List<Exercise12.Car> getCarsSorted(String order) {
-            if (order.equals("ASC")) {
+            if (order.equalsIgnoreCase("ASC")) {
                 Collections.sort(carList, (o1, o2) -> {
                     return o1.getYearOfManufacture() - o2.getYearOfManufacture();
                 });
             }
-            if (order.equals("DESC")) {
+            if (order.equalsIgnoreCase("DESC")) {
                 Collections.sort(carList, (o1, o2) -> {
                     return o2.getYearOfManufacture() - o1.getYearOfManufacture();
                 });
@@ -66,7 +66,7 @@ public class Exercise13 {
         }
 
         public boolean isCarPresent(Exercise12.Car car) {
-            return carList.stream().anyMatch(c -> c.equals(car));
+            return carList.contains(car);
         }
 
         public List<Exercise12.Car> findCarsProducedBy(Exercise12.Manufacturer manufacturer) {
@@ -97,13 +97,12 @@ public class Exercise13 {
                 default:
                     throw new IllegalArgumentException("Operator is illegal");
             }
-            Optional<Exercise12.Manufacturer> possibleManufacture = carList.stream()
-                    .flatMap(car -> car.getManufacturerList().stream()).filter(predicate).findFirst();
-            if (possibleManufacture.isPresent()) {
-                return carList.stream().filter(car -> car.getManufacturerList().contains(possibleManufacture.get()))
-                        .collect(Collectors.toList());
-            }
-            return null;
+
+            return carList.stream().filter(car-> hasManufacturer(car,predicate)).collect(Collectors.toList());
+        }
+
+        private boolean hasManufacturer(Exercise12.Car car, Predicate<Exercise12.Manufacturer> predicate) {
+                return car.getManufacturerList().stream().anyMatch( manufacturer -> predicate.test(manufacturer));
         }
 
 
@@ -139,8 +138,30 @@ public class Exercise13 {
         System.out.println("Total No. of cars: " + carService.getCarList().size());
         Exercise12.Car car = new Exercise12.Car("Ford", "Fiesta", 35000, 2021, Arrays.asList(fordManufacture), Exercise12.EngineType.V6);
 
+
+
         carService.remove(car);
         System.out.println("Total No. of cars: " + carService.getCarList().size());
 
+        System.out.println(carService.getCarByEngine(Exercise12.EngineType.V12));
+
+        System.out.println();
+        System.out.println(carService.getCarsProducedBeforeYear(2016));
+
+        System.out.println(carService.getMostExpensiveCar());
+
+        System.out.println(carService.getCarByTheNumberOfManufacture(3));
+        System.out.println();
+
+        carService.getCarsSorted("asc").stream().forEach(System.out::println);
+
+        Exercise12.Car fiatPunto = new Exercise12.Car("Fiat", "Punto", 15000, 2019, Arrays.asList(fiatManufacturer, toyotaManufacturer, fordManufacture), Exercise12.EngineType.S3);
+
+        System.out.println(carService.isCarPresent(fiatPunto));
+
+        System.out.println();
+        carService.findCarsProducedBy(toyotaManufacturer).stream().forEach(System.out::println);
+        System.out.println();
+        carService.findCarProducedByManufacturesWithYearOfEstablishment("==",1960).stream().forEach(System.out::println);
     }
 }
