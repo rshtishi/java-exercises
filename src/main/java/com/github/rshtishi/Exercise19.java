@@ -34,6 +34,14 @@ public class Exercise19 {
             result = 31 * result + battery.hashCode();
             return result;
         }
+
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder("LapTop{");
+            sb.append("battery='").append(battery).append('\'');
+            sb.append('}');
+            return sb.toString();
+        }
     }
 
     public static void main(String[] args) {
