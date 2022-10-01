@@ -8,7 +8,7 @@ public class Exercise21 {
 
     }
 
-    public static class Cone extends Shape3d {
+    public static class Cone extends Shape3d implements Exercise22.Fillable {
 
         public static final double PI = 3.14;
 
@@ -36,9 +36,20 @@ public class Exercise21 {
         public double calculateVolume() {
             return (PI * Math.pow(radius, 2) * height) / 3;
         }
+
+        @Override
+        public void fill(int num) {
+            if(num>calculateVolume()){
+                System.out.println("not pouring enough water");
+            } else if(num==calculateVolume()){
+                System.out.println("fill the figure with water to the brim");
+            } else {
+                System.out.println("will pour too much water into the figure and overflow");
+            }
+        }
     }
 
-    public static class Cube extends Shape3d {
+    public static class Cube extends Shape3d implements Exercise22.Fillable {
 
         private int size;
 
@@ -59,6 +70,17 @@ public class Exercise21 {
         @Override
         public double calculateVolume() {
             return Math.pow(size, 3);
+        }
+
+        @Override
+        public void fill(int num) {
+            if(num>calculateVolume()){
+                System.out.println("not pouring enough water");
+            } else if(num==calculateVolume()){
+                System.out.println("fill the figure with water to the brim");
+            } else {
+                System.out.println("will pour too much water into the figure and overflow");
+            }
         }
     }
 
