@@ -6,6 +6,18 @@ import java.util.stream.Collectors;
 
 public class Exercise24 {
 
+    public static class BasketFullException extends Exception {
+        public BasketFullException() {
+            super("Basket full exception");
+        }
+    }
+
+    public static class BasketEmptyException extends Exception {
+        public BasketEmptyException() {
+            super("Basket emptyException");
+        }
+    }
+
     public static class Basket<T> {
 
         private static final int SIZE = 10;
@@ -18,17 +30,17 @@ public class Exercise24 {
             index = 0;
         }
 
-        public void addToBasket(T e) {
+        public void addToBasket(T e) throws BasketFullException {
             if (index == SIZE - 1) {
-                throw new RuntimeException("Basket Full Exception");
+                throw new BasketFullException();
             }
             array[index] = e;
             index++;
         }
 
-        public void removeFromBasket() {
-            if(index==0){
-                throw new RuntimeException("Basket Empty Exception");
+        public void removeFromBasket() throws BasketEmptyException {
+            if (index == 0) {
+                throw new BasketEmptyException();
             }
             index--;
             array[index] = null;
@@ -45,7 +57,7 @@ public class Exercise24 {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BasketFullException, BasketEmptyException {
         Basket<String> basket = new Basket<>();
         basket.addToBasket("Test1");
         basket.addToBasket("Test2");
