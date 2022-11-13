@@ -29,8 +29,8 @@ public class Exercise9 {
 
         @Override
         public void move(Exercise10.MoveDirection moveDirection) {
-            x+=moveDirection.getX();
-            y+=moveDirection.getY();
+            x += moveDirection.getX();
+            y += moveDirection.getY();
         }
     }
 
@@ -75,8 +75,8 @@ public class Exercise9 {
 
         @Override
         public void resize(double resizeFactor) {
-            double dx = Math.abs(this.point.getX() - this.point.getX()*resizeFactor);
-            double dy = Math.abs(this.point.getY() - this.point.getY()*resizeFactor);
+            double dx = this.point.getX() * resizeFactor -this.point.getX();
+            double dy = this.point.getY() * resizeFactor - this.point.getY();
             Exercise10.MoveDirection direction = new Exercise10.MoveDirection(dx, dy);
             this.point.move(direction);
             this.radius = calculateRadius();
@@ -94,7 +94,9 @@ public class Exercise9 {
     }
 
     public static void main(String[] args) {
-        Circle circle = new Circle(new Point2D(1, 1), new Point2D(1, 5));
+        Point2D center = new Point2D(1, 1);
+        Point2D point = new Point2D(1, 5);
+        Circle circle = new Circle(center, point);
         System.out.println(circle.getRadius());
         System.out.println(circle.getPerimeter());
         System.out.println(circle.getArea());
