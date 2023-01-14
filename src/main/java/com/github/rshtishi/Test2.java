@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Test2 {
 
-    static class Person implements Comparable<Person>{
+    static class Person implements Comparable<Person> {
 
         private String name;
         private int age;
@@ -81,7 +81,7 @@ public class Test2 {
         System.out.println(personList);
 
         System.out.println("Reverse sorting by name");
-        Comparator<Person> sortByName = (p1,p2) -> p1.getName().compareTo(p2.getName());
+        Comparator<Person> sortByName = (p1, p2) -> p1.getName().compareTo(p2.getName());
         /*
         sortByName = new Comparator<Person>() {
             @Override
@@ -94,10 +94,9 @@ public class Test2 {
         System.out.println(personList);
 
         System.out.println("Sort by age");
-        /**
-         * TO DO
-         * sort by age
-         */
+        Comparator<Person> sortByAge = (p1, p2) -> p1.getAge() - p2.getAge();
+        sortByAge = Comparator.comparingInt(person -> person.getAge());
+        Collections.sort(personList, sortByAge);
         System.out.println(personList);
 
         /**
