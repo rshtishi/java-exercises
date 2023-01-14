@@ -99,9 +99,10 @@ public class Test2 {
         Collections.sort(personList, sortByAge);
         System.out.println(personList);
 
-        /**
-         * TO sort by age and name
-         */
+        System.out.println("Sort by age and name");
+        Comparator<Person> sortByAgeAndName = sortByAge.thenComparing(sortByName);
+        Collections.sort(personList,sortByAgeAndName);
+        System.out.println(personList);
 
 
     }
