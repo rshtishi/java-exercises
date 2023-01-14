@@ -97,7 +97,6 @@ public class Exercise13 {
                 default:
                     throw new IllegalArgumentException("Operator is illegal");
             }
-
             return carList.stream().filter(car-> hasManufacturer(car,predicate)).collect(Collectors.toList());
         }
 

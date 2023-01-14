@@ -65,6 +65,11 @@ public class Exercise12 {
             boolean countryEquals = (this.country == null && other.getCountry() == null) || (this.country != null && this.country.equals(other.getCountry()));
             return this.yearOfEstablishment == other.getYearOfEstablishment() && nameEquals && countryEquals;
         }
+
+        @Override
+        public String toString(){
+            return String.format("Manufacturer(name=%s, yearOfEstablishment=%d, country=%s)",name,yearOfEstablishment,country);
+        }
     }
 
     static enum EngineType {
@@ -183,7 +188,10 @@ public class Exercise12 {
     }
 
     public static void main(String[] args) {
+
+
         Manufacturer manufacturer = new Manufacturer("Tesla", 2011, "USA");
         Car car = new Car("Tesla", "Model Y", 35000, 2011, Arrays.asList(manufacturer), EngineType.V8);
+        System.out.println(manufacturer);
     }
 }

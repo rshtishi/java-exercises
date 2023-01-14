@@ -75,7 +75,7 @@ public class Exercise9 {
 
         @Override
         public void resize(double resizeFactor) {
-            double dx = this.point.getX() * resizeFactor -this.point.getX();
+            double dx = this.point.getX() * resizeFactor - this.point.getX();
             double dy = this.point.getY() * resizeFactor - this.point.getY();
             Exercise10.MoveDirection direction = new Exercise10.MoveDirection(dx, dy);
             this.point.move(direction);
