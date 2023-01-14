@@ -71,7 +71,7 @@ public class Test2 {
 
         List<Person> personList = Arrays.asList(
                 new Person("John", 30, 1.80),
-                new Person("Jim", 20, 1.7),
+                new Person("Jim", 23, 1.7),
                 new Person("Jane", 23, 1.68)
         );
         System.out.println(personList);
@@ -81,10 +81,16 @@ public class Test2 {
         System.out.println(personList);
 
         System.out.println("Reverse sorting by name");
-        /**
-         * TO DO
-         * reverse sort by name
+        Comparator<Person> sortByName = (p1,p2) -> p1.getName().compareTo(p2.getName());
+        /*
+        sortByName = new Comparator<Person>() {
+            @Override
+            public int compare(Person o1, Person o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        };
          */
+        Collections.sort(personList, sortByName.reversed());
         System.out.println(personList);
 
         System.out.println("Sort by age");
@@ -93,6 +99,10 @@ public class Test2 {
          * sort by age
          */
         System.out.println(personList);
+
+        /**
+         * TO sort by age and name
+         */
 
 
     }
