@@ -57,7 +57,7 @@ public class Exercise4 {
             /**
              * 1. convert map -> entryset
              * 2. convert entrySet -> stream
-             * 3. filter by value
+             * 3. filter by value java ->[John,Jim,Jane]} -> el.getValue().contains(value)
              * 4. map entry to string , e.g. {java ->[John,Jim,Jane]} -> java
              * 5. foreach print
              */
