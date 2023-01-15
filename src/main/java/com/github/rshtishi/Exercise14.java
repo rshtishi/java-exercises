@@ -3,6 +3,7 @@ package com.github.rshtishi;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Exercise14 {
 
@@ -12,13 +13,13 @@ public class Exercise14 {
         int[] array = random.ints(100, 0, 100).toArray();
         int count = 0;
 
-        Map<Integer,Integer> valuesByFreqMap = generateValueByFreqMap(array);
+        Map<Integer, Integer> valuesByFreqMap = generateValueByFreqMap(array);
 
         List<Integer> uniqueValues = generateUniqueValuesList(valuesByFreqMap);
 
         List<Integer> duplicates = generateDuplicatesValuesList(valuesByFreqMap);
 
-        List<Integer> mostFrequentNumberList = generateMostFrequentNumberList(valuesByFreqMap)
+        List<Integer> mostFrequentNumberList = generateMostFrequentNumberList(valuesByFreqMap);
 
     }
 
@@ -64,6 +65,25 @@ public class Exercise14 {
          * 1.a.3 add to map
          * 1.b.1 (False) add to map key me value 1
          */
-        return null;
+        /**
+         Map<Integer, Integer> map = new HashMap<>();
+         for (int num : array) {
+         if (map.containsKey(num)) {
+         int freq = map.get(num);
+         freq++;
+         map.put(num, freq);
+         } else {
+         map.put(num, 1);
+         }
+         }
+         */
+
+        Map<Integer, Integer> map = Arrays.stream(array).boxed()
+                .collect(Collectors.toMap(
+                        key -> key,
+                        value -> 1,
+                        (a, b) -> a + b
+                ));
+        return map;
     }
 }
