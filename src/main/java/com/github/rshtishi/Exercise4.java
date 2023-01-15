@@ -20,7 +20,7 @@ public class Exercise4 {
              * 1. Check if key Exists in map
              * 1.a.1 if exists then get List corresponding to the key
              * 1.a.2 add value to the List
-             * 1.b.1 if doesnt exit create a new list
+             * 1.b.1 if doesnt exist create a new list
              * 1.b.2 add value to the list
              * 1.b.3 and key and list in map
              */
@@ -65,4 +65,3 @@ public class Exercise4 {
     }
 }
 
- }
