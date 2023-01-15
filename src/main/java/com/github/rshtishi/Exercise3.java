@@ -18,10 +18,19 @@ public class Exercise3 {
     }
 
     private static void printMap(Map<String, String> map) {
-
+        List<String> stringList = map.entrySet().stream().map(el ->prepareText(el))
+                .collect(Collectors.toList());
+        String text = String.join(",\n",stringList)+".";
+        System.out.println(text);
     }
 
-    private static String prepareText(String key, Map<String, String> map) {
-        return null;
+    private static String prepareText(Map.Entry<String, String> el) {
+        /**
+         * Map.Entry -> String
+         * el ->
+         * key -> el.getKey()
+         * value -> el.getValue()
+         */
+        return "Text";
     }
 }
