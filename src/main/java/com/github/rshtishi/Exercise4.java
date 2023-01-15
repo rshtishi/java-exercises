@@ -69,8 +69,6 @@ public class Exercise4 {
                     .collect(Collectors.toList());
             String text = String.join(",\n",keyList);
             System.out.println(text);
-
-
         }
     }
 

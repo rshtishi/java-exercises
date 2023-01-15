@@ -6,7 +6,7 @@ public class Exercise6 {
 
     public static void main(String[] args) {
 
-        Map<Integer, String> studentByGrade = new TreeMap<>();
+        Map<Integer, String> studentByGrade = new TreeMap<>((o1,o2)-> Integer.compare(o2,o1));
         studentByGrade.put(10, "John");
         studentByGrade.put(5, "Jack");
         studentByGrade.put(7, "Rachel");
