@@ -24,6 +24,14 @@ public class Exercise4 {
              * 1.b.2 add value to the list
              * 1.b.3 and key and list in map
              */
+            if(data.containsKey(key)){
+                List<String> values = data.get(key);
+                values.add(value);
+            } else {
+                List<String> values = new ArrayList<>();
+                values.add(value);
+                data.put(key,values);
+            }
         }
 
         public void printValues(String key) {
@@ -59,9 +67,10 @@ public class Exercise4 {
         storage.addToStorage("javascript", "John");
         storage.addToStorage("javascript", "Jane");
 
-        storage.printValues("javascript");
+        System.out.println(storage.data);
+        //storage.printValues("javascript");
 
-        storage.findValues("John");
+        //storage.findValues("John");
     }
 }
 
