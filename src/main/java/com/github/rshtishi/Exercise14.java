@@ -13,14 +13,23 @@ public class Exercise14 {
         int[] array = random.ints(100, 0, 100).toArray();
         int count = 0;
 
+        System.out.println("array");
+        Arrays.stream(array).forEach(e -> System.out.print(" "+e));
+        System.out.println();
+
         Map<Integer, Integer> valuesByFreqMap = generateValueByFreqMap(array);
 
         List<Integer> uniqueValues = generateUniqueValuesList(valuesByFreqMap);
+        System.out.println("unique list");
+        System.out.println(uniqueValues);
 
-        List<Integer> duplicates = generateDuplicatesValuesList(valuesByFreqMap);
+        List<Integer> duplicatesValuesList = generateDuplicatesValuesList(valuesByFreqMap);
+        System.out.println("duplicates list");
+        System.out.println(duplicatesValuesList);
 
         List<Integer> mostFrequentNumberList = generateMostFrequentNumberList(valuesByFreqMap);
-
+        System.out.println("Most frequet numbers");
+        System.out.println(mostFrequentNumberList);
     }
 
     private static List<Integer> generateMostFrequentNumberList(Map<Integer, Integer> valuesByFreqMap) {
@@ -30,7 +39,12 @@ public class Exercise14 {
          * sort stream comparator
          * limit 25
          */
-        return null;
+        List<Integer> list = valuesByFreqMap.entrySet()
+                .stream()
+                .sorted((e1,e2)-> Integer.compare(e2.getValue(),e1.getValue()))
+                .map(e -> e.getKey())
+                .collect(Collectors.toList());
+        return list;
     }
 
     private static List<Integer> generateDuplicatesValuesList(Map<Integer, Integer> valuesByFreqMap) {
@@ -42,7 +56,12 @@ public class Exercise14 {
          *  map entry -> entry.getKey()
          *  convert stream to List
          */
-        return null;
+        List<Integer> list = valuesByFreqMap.entrySet()
+                .stream()
+                .filter(e -> e.getValue()>1)
+                .map(e -> e.getKey())
+                .collect(Collectors.toList());
+        return list;
     }
 
     private static List<Integer> generateUniqueValuesList(Map<Integer, Integer> valuesByFreqMap) {
@@ -54,7 +73,13 @@ public class Exercise14 {
          *  map entry -> entry.getKey()
          *  convert stream to List
          */
-        return null;
+        List<Integer> list = valuesByFreqMap.entrySet()
+                .stream()
+                .filter(e -> e.getValue()==1)
+                .map(e -> e.getKey())
+                .limit(100)
+                .collect(Collectors.toList());
+        return list;
     }
 
     private static Map<Integer, Integer> generateValueByFreqMap(int[] array) {
