@@ -2,7 +2,7 @@ package com.github.rshtishi;
 
 import java.util.*;
 
-public class Test2 {
+public class TestExercise1 {
 
     static class Person implements Comparable<Person> {
 
