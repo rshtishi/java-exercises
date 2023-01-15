@@ -18,9 +18,9 @@ public class Exercise3 {
     }
 
     private static void printMap(Map<String, String> map) {
-        List<String> stringList = map.entrySet().stream().map(el ->prepareText(el))
+        List<String> stringList = map.entrySet().stream().map(el -> prepareText(el))
                 .collect(Collectors.toList());
-        String text = String.join(",\n",stringList)+".";
+        String text = String.join(",\n", stringList) + ".";
         System.out.println(text);
     }
 
@@ -32,6 +32,11 @@ public class Exercise3 {
          * key -> el.getKey()
          * value -> el.getValue()
          */
-        return "Text";
+        String value = String.format("Key:%s, Value:%s", el.getKey(), el.getValue());
+        StringBuilder stringBuilder = new StringBuilder("Key:");
+        stringBuilder.append(el.getKey()).append(", Value:").append(el.getValue());
+        return stringBuilder.toString();
     }
+
+
 }
