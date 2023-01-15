@@ -26,7 +26,8 @@ public class Exercise3 {
 
     private static String prepareText(Map.Entry<String, String> el) {
         /**
-         * Map.Entry -> String
+         * Map.Entry      ->   String
+         * Country=Albania -> Key:Country, Value:Albania
          * el ->
          * key -> el.getKey()
          * value -> el.getValue()
