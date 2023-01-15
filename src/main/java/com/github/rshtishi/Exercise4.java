@@ -39,6 +39,7 @@ public class Exercise4 {
             /**
              * 1. convert map to entryset
              * 2. convert entryset to stream
+             * 3. filter el , el.getKey()===key
              * 3. flatmap {java ->[John,Jim,Jane]} -> John, Jim, Jane
              * 4. foreach print
              */
