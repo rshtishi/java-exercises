@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class Exercise23 {
 
-    public static enum AnimalType {
+    static enum AnimalType {
         LION,
         TIGER,
         WOLF,
@@ -13,100 +13,52 @@ public class Exercise23 {
         ELEPHANT,
         MONKEY,
         SNAKE;
-
-
     }
 
-    public static class Animal {
-
-        private String name;
-        private AnimalType type;
-
-        public Animal(String name, AnimalType type) {
-            this.name = name;
-            this.type = type;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public AnimalType getType() {
-            return type;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Animal animal = (Animal) o;
-
-            if (name != null ? !name.equals(animal.name) : animal.name != null) return false;
-            return type == animal.type;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = name != null ? name.hashCode() : 0;
-            result = 31 * result + (type != null ? type.hashCode() : 0);
-            return result;
-        }
-
-        @Override
-        public String toString() {
-            final StringBuilder sb = new StringBuilder("Animal{");
-            sb.append("name='").append(name).append('\'');
-            sb.append(", type='").append(type).append('\'');
-            sb.append('}');
-            return sb.toString();
-        }
-    }
-
-    public static class Zoo {
-
-        private List<Animal> animalList = new ArrayList<>();
+    static class Zoo {
+        private Map<AnimalType, Integer> animals;
 
         public Zoo() {
-            animalList.add(new Animal("Leo", AnimalType.LION));
-            animalList.add(new Animal("Silver", AnimalType.TIGER));
-            animalList.add(new Animal("Leroy", AnimalType.LION));
-            animalList.add(new Animal("Roy", AnimalType.TIGER));
-            animalList.add(new Animal("Niko", AnimalType.WOLF));
-            animalList.add(new Animal("Etien", AnimalType.SNAKE));
-            animalList.add(new Animal("Babar", AnimalType.ELEPHANT));
-            animalList.add(new Animal("Sohko", AnimalType.HIPPO));
-            animalList.add(new Animal("Nero", AnimalType.HIPPO));
-            animalList.add(new Animal("Sia", AnimalType.TIGER));
-            animalList.add(new Animal("Alicia", AnimalType.MONKEY));
-            animalList.add(new Animal("Bob", AnimalType.MONKEY));
-            animalList.add(new Animal("Toro", AnimalType.SNAKE));
+            animals = new HashMap();
         }
 
-        public int getNumberOfAllAnimals() {
-            return animalList.size();
+        public void addAnimals(AnimalType type, int num) {
+            if (this.animals.containsKey(type)) {
+                int previousValue = this.animals.get(type);
+                int value = previousValue + num;
+                this.animals.put(type, value);
+            } else {
+                this.animals.put(type, num);
+            }
         }
 
-        public Map<String, Long> getAnimalCount() {
-            return animalList.stream().collect(Collectors.groupingBy(animal -> animal.getType().toString(),
-                    Collectors.counting()));
+        public int getNumberOfAllAnimals(){
+            return this.animals.entrySet()
+                    .stream()
+                    .map(e -> e.getValue())
+                    .reduce(0,(a,b)->a+b);
         }
 
-        public Map<String, Long> getAnimalCountSorted() {
-            return animalList.stream().collect(Collectors.groupingBy(animal -> animal.getType().toString(), Collectors.counting()))
-                    .entrySet().stream()
-                    .sorted(Map.Entry.comparingByValue())
-                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                            (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+        public List<Map.Entry<AnimalType, Integer>> getAnimalsCountSorted(){
+            List<Map.Entry<AnimalType,Integer>> list =this.animals.entrySet().stream().sorted(
+                    (e1,e2)-> Integer.compare(e2.getValue(),e1.getValue())
+            ).collect(Collectors.toList());
+            return list;
         }
     }
 
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         Zoo zoo = new Zoo();
+        zoo.addAnimals(AnimalType.TIGER,5);
+        zoo.addAnimals(AnimalType.LION,3);
+        zoo.addAnimals(AnimalType.MONKEY,15);
+        zoo.addAnimals(AnimalType.LION,2);
+        zoo.addAnimals(AnimalType.SNAKE,20);
+
+        System.out.println(zoo.animals);
         System.out.println(zoo.getNumberOfAllAnimals());
-        System.out.println(zoo.getAnimalCount());
-        System.out.println(zoo.getAnimalCountSorted());
+        System.out.println(zoo.getAnimalsCountSorted());
 
     }
 }
