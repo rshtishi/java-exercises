@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Exercise4 {
 
@@ -35,7 +36,6 @@ public class Exercise4 {
         }
 
         public void printValues(String key) {
-
             /**
              * 1. convert map to entryset
              * 2. convert entryset to stream
@@ -43,6 +43,14 @@ public class Exercise4 {
              * 3. flatmap {java ->[John,Jim,Jane]} -> John, Jim, Jane
              * 4. foreach print
              */
+            List<String> valueList = data //{java=[John, Gerard, Jane, Mary], javascript=[John, Jane]}
+                    .entrySet(). //[java=[John, Gerard, Jane, Mary], javascript=[John, Jane] ]
+                    stream() //java=[John, Gerard, Jane, Mary]
+                    .filter(el -> el.getKey().equals(key)) // filter by key
+                    .flatMap(el -> el.getValue().stream())
+                    . collect(Collectors.toList());
+            String text = String.join(",\n",valueList);
+            System.out.println(text);
         }
 
         public void findValues(String value) {
@@ -69,7 +77,7 @@ public class Exercise4 {
         storage.addToStorage("javascript", "Jane");
 
         System.out.println(storage.data);
-        //storage.printValues("javascript");
+        storage.printValues("javascript");
 
         //storage.findValues("John");
     }
