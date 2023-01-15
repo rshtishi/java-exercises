@@ -25,13 +25,13 @@ public class Exercise4 {
              * 1.b.2 add value to the list
              * 1.b.3 and key and list in map
              */
-            if(data.containsKey(key)){
+            if (data.containsKey(key)) {
                 List<String> values = data.get(key);
                 values.add(value);
             } else {
                 List<String> values = new ArrayList<>();
                 values.add(value);
-                data.put(key,values);
+                data.put(key, values);
             }
         }
 
@@ -45,11 +45,11 @@ public class Exercise4 {
              */
             List<String> valueList = data //{java=[John, Gerard, Jane, Mary], javascript=[John, Jane]}
                     .entrySet(). //[java=[John, Gerard, Jane, Mary], javascript=[John, Jane] ]
-                    stream() //java=[John, Gerard, Jane, Mary]
+                            stream() //java=[John, Gerard, Jane, Mary]
                     .filter(el -> el.getKey().equals(key)) // filter by key
                     .flatMap(el -> el.getValue().stream())
-                    . collect(Collectors.toList());
-            String text = String.join(",\n",valueList);
+                    .collect(Collectors.toList());
+            String text = String.join(",\n", valueList);
             System.out.println(text);
         }
 
@@ -61,6 +61,14 @@ public class Exercise4 {
              * 4. map entry to string , e.g. {java ->[John,Jim,Jane]} -> java
              * 5. foreach print
              */
+            List<String> keyList = data //{java=[John, Gerard, Jane, Mary], javascript=[John, Jane]}
+                    .entrySet() //[java=[John, Gerard, Jane, Mary], javascript=[John, Jane] ]
+                    .stream() //java=[John, Gerard, Jane, Mary]
+                    .filter(el -> el.getValue().contains(value)) // filter by value (trainer name)
+                    .map(el -> el.getKey())
+                    .collect(Collectors.toList());
+            String text = String.join(",\n",keyList);
+            System.out.println(text);
 
 
         }
@@ -79,7 +87,7 @@ public class Exercise4 {
         System.out.println(storage.data);
         storage.printValues("javascript");
 
-        //storage.findValues("John");
+        storage.findValues("John");
     }
 }
 
