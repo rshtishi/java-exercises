@@ -46,23 +46,23 @@ public class Exercise4 {
              */
 
 
- }
- }
+        }
+    }
 
- public static void main(String[] args) {
+    public static void main(String[] args) {
 
- Storage storage = new Storage();
- storage.addToStorage("java","John");
- storage.addToStorage("java","Gerard");
- storage.addToStorage("java","Jane");
- storage.addToStorage("java","Mary");
- storage.addToStorage("javascript","John");
- storage.addToStorage("javascript","Jane");
+        Storage storage = new Storage();
+        storage.addToStorage("java", "John");
+        storage.addToStorage("java", "Gerard");
+        storage.addToStorage("java", "Jane");
+        storage.addToStorage("java", "Mary");
+        storage.addToStorage("javascript", "John");
+        storage.addToStorage("javascript", "Jane");
 
- storage.printValues("javascript");
+        storage.printValues("javascript");
 
- storage.findValues("John");
- }
- }
+        storage.findValues("John");
+    }
+}
 
  }
