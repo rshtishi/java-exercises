@@ -86,8 +86,13 @@ public class Exercise13 {
         }
 
         public boolean isCarPresent(Exercise12.Car car){
-            // TO DO
-            return false;
+            //return carList.stream().anyMatch(c ->c.equals(car));
+            return carList.contains(car);
+        }
+
+        public List<Exercise12.Car> getCarListManufacturedBy(Exercise12.Manufacturer manufacturer){
+            //TO DO
+            return null;
         }
 
     }
@@ -137,8 +142,11 @@ public class Exercise13 {
         System.out.println("Sorted By Year of Manufactured");
         System.out.println(carService.getSortedCarListByYearOfManufactured(CarService.SortingMode.ASC));
 
-        Exercise12.Car fordCar =new Exercise12.Car("Ford", "Fiesta", 35000, 2021, Arrays.asList(fordManufacture), Exercise12.EngineType.V6);
+        Exercise12.Car fordCar =new Exercise12.Car("Ford", "Focus", 55000, 2021, Arrays.asList(fordManufacture), Exercise12.EngineType.V6);
         System.out.println("Does the car exist in the car list");
         System.out.println(carService.isCarPresent(fordCar));
+
+        System.out.println("Cars produced by ford");
+        System.out.println(carService.getCarListManufacturedBy(fordManufacture));
     }
 }
