@@ -45,7 +45,14 @@ public class Exercise13 {
         }
 
         public Exercise12.Car getMostExpensiveCar() {
-            // TO DO
+            List<Exercise12.Car> sortedCarList = carList.stream()
+                    .sorted( (c1,c2) -> Double.compare(c2.getPrice(),c1.getPrice()))
+                    .collect(Collectors.toList());
+            return sortedCarList.get(0);
+        }
+
+        public Exercise12.Car getCheapestCar(){
+            //TO DO
             return null;
         }
 
@@ -89,6 +96,9 @@ public class Exercise13 {
 
         System.out.println("Most Expensive Car");
         System.out.println(carService.getMostExpensiveCar());
+
+        System.out.println("Cheapest Car");
+        System.out.println(carService.getCheapestCar());
 
     }
 }
