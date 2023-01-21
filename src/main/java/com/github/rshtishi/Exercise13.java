@@ -87,12 +87,12 @@ public class Exercise13 {
             return sortedList;
         }
 
-        public boolean isCarPresent(Exercise12.Car car){
+        public boolean isCarPresent(Exercise12.Car car) {
             //return carList.stream().anyMatch(c ->c.equals(car));
             return carList.contains(car);
         }
 
-        public List<Exercise12.Car> getCarListManufacturedBy(Exercise12.Manufacturer manufacturer){
+        public List<Exercise12.Car> getCarListManufacturedBy(Exercise12.Manufacturer manufacturer) {
             List<Exercise12.Car> carsManufactueredBy = carList.stream()
                     .filter(c -> c.getManufacturerList().contains(manufacturer))
                     .collect(Collectors.toList());
@@ -103,27 +103,38 @@ public class Exercise13 {
             LT, LTE, EQ, GT, GTE, NEQ;
         }
 
-        public List<Exercise12.Car> getCarListWithManufactuerYearOfEstablishment(int yearOfEstablishment,ComparisonType comparisonType){
+        public List<Exercise12.Car> getCarListWithManufactuerYearOfEstablishment(int yearOfEstablishment, ComparisonType comparisonType) {
             List<Exercise12.Car> carListFiltered = carList.stream()
-                    .filter(c -> filteredByManufactuereYearOfEstablishment(c,yearOfEstablishment,comparisonType))
+                    .filter(c -> filteredByManufactuereYearOfEstablishment(c, yearOfEstablishment, comparisonType))
                     .collect(Collectors.toList());
 
             return carListFiltered;
         }
 
         private boolean filteredByManufactuereYearOfEstablishment(Exercise12.Car c, int yearOfEstablishment, ComparisonType comparisonType) {
-            Predicate<Exercise12.Manufacturer> comparator = null;
-            switch (comparisonType){
+            Predicate<Exercise12.Manufacturer> predicate = null;
+            switch (comparisonType) {
                 case GTE:
-                    comparator= (m )-> m.getYearOfEstablishment() >=yearOfEstablishment;
+                    predicate = (m) -> m.getYearOfEstablishment() >= yearOfEstablishment;
                     break;
                 case GT:
-                    // TO DO
+                    predicate = (m) -> m.getYearOfEstablishment() > yearOfEstablishment;
                     break;
-                    // TO  DO
+                case EQ:
+                    predicate = (m) -> m.getYearOfEstablishment() == yearOfEstablishment;
+                    break;
+                case NEQ:
+                    predicate = (m) -> m.getYearOfEstablishment() != yearOfEstablishment;
+                    break;
+                case LTE:
+                    predicate = (m) -> m.getYearOfEstablishment() <= yearOfEstablishment;
+                    break;
+                case LT:
+                    predicate = (m) -> m.getYearOfEstablishment() < yearOfEstablishment;
+                    break;
                 default:
             }
-            return c.getManufacturerList().stream().anyMatch(comparator);
+            return c.getManufacturerList().stream().anyMatch(predicate);
         }
 
     }
@@ -173,7 +184,7 @@ public class Exercise13 {
         System.out.println("Sorted By Year of Manufactured");
         System.out.println(carService.getSortedCarListByYearOfManufactured(CarService.SortingMode.ASC));
 
-        Exercise12.Car fordCar =new Exercise12.Car("Ford", "Focus", 55000, 2021, Arrays.asList(fordManufacture), Exercise12.EngineType.V6);
+        Exercise12.Car fordCar = new Exercise12.Car("Ford", "Focus", 55000, 2021, Arrays.asList(fordManufacture), Exercise12.EngineType.V6);
         System.out.println("Does the car exist in the car list");
         System.out.println(carService.isCarPresent(fordCar));
 
