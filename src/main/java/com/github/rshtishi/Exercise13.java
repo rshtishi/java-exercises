@@ -64,18 +64,30 @@ public class Exercise13 {
 
         public Exercise12.Car getCarWithAtLeast3Producer() {
             Optional<Exercise12.Car> possibleCar = carList.stream()
-                    .filter(car -> car.getManufacturerList().size()>=3)
+                    .filter(car -> car.getManufacturerList().size() >= 3)
                     .findFirst();
             return possibleCar.get();
         }
 
         static enum SortingMode {
-            ASC,DESC;
+            ASC, DESC;
         }
 
-        public List<Exercise12.Car> getSortedCarListByYearOfManufactured(SortingMode mode){
-            //TO DO
-            return null;
+        public List<Exercise12.Car> getSortedCarListByYearOfManufactured(SortingMode mode) {
+            Comparator<Exercise12.Car> sortCarsComparator = (c1, c2) -> Integer.compare(c1.getYearOfManufacture(), c2.getYearOfManufacture());
+            if (mode == SortingMode.DESC) {
+                sortCarsComparator = sortCarsComparator.reversed();
+            }
+            //sortCarsComparator = sortCarsComparator.thenComparing((c1, c2) -> Double.compare(c1.getPrice(), c2.getPrice()));
+            List<Exercise12.Car> sortedList = carList.stream()
+                    .sorted(sortCarsComparator)
+                    .collect(Collectors.toList());
+            return sortedList;
+        }
+
+        public boolean isCarPresent(Exercise12.Car car){
+            // TO DO
+            return false;
         }
 
     }
@@ -123,7 +135,10 @@ public class Exercise13 {
         System.out.println(carService.getCheapestCar());
 
         System.out.println("Sorted By Year of Manufactured");
-        System.out.println(carService.getSortedCarListByYearOfManufactured(CarService.SortingMode.DESC));
+        System.out.println(carService.getSortedCarListByYearOfManufactured(CarService.SortingMode.ASC));
 
+        Exercise12.Car fordCar =new Exercise12.Car("Ford", "Fiesta", 35000, 2021, Arrays.asList(fordManufacture), Exercise12.EngineType.V6);
+        System.out.println("Does the car exist in the car list");
+        System.out.println(carService.isCarPresent(fordCar));
     }
 }
