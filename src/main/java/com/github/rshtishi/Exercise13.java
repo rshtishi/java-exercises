@@ -91,6 +91,13 @@ public class Exercise13 {
         }
 
         public List<Exercise12.Car> getCarListManufacturedBy(Exercise12.Manufacturer manufacturer){
+            List<Exercise12.Car> carsManufactueredBy = carList.stream()
+                    .filter(c -> c.getManufacturerList().contains(manufacturer))
+                    .collect(Collectors.toList());
+            return carsManufactueredBy;
+        }
+
+        public List<Exercise12.Car> getCarListWithManufactuerYearOfEstablishment(int yearOfEstablishment){
             //TO DO
             return null;
         }
@@ -148,5 +155,8 @@ public class Exercise13 {
 
         System.out.println("Cars produced by ford");
         System.out.println(carService.getCarListManufacturedBy(fordManufacture));
+
+        System.out.println("Cars produced by  manufactuere with year of establishment");
+        System.out.println(carService.getCarListWithManufactuerYearOfEstablishment(1970));
     }
 }
