@@ -14,7 +14,7 @@ public class Exercise13 {
             carList = new ArrayList<>();
         }
 
-        public CarService(int size){
+        public CarService(int size) {
             carList = new ArrayList<>(size);
         }
 
@@ -30,11 +30,17 @@ public class Exercise13 {
             return this.carList;
         }
 
-        public List<Exercise12.Car> getCarsWithV12Engine(){
+        public List<Exercise12.Car> getCarsWithV12Engine() {
+            List<Exercise12.Car> v12Cars = carList.stream()
+                    .filter(c -> c.getEngineType() == Exercise12.EngineType.V12)
+                    .collect(Collectors.toList());
+            return v12Cars;
+        }
+
+        public List<Exercise12.Car> getCarsFilteredByYearOfManufactuer(int yearOfManufactuer) {
             // TO DO
             return null;
         }
-
 
     }
 
@@ -67,6 +73,9 @@ public class Exercise13 {
 
         carService.remove(car);
         System.out.println("Total No. of cars: " + carService.getCarList().size());
+
+        System.out.println("V12 car list");
+        System.out.println(carService.getCarsWithV12Engine());
 
     }
 }
