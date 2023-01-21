@@ -50,6 +50,10 @@ public class Exercise23 {
         public AnimalType getType() {
             return type;
         }
+
+        public int getAnimalNo() {
+            return animalNo;
+        }
     }
 
     static class Zoo {
@@ -72,11 +76,23 @@ public class Exercise23 {
         }
 
         public int getNumberOfAllAnimals() {
-            return 0;
+            int total = animals.stream()
+                    .map(animal -> animal.getAnimalNo())
+                    .reduce(0, (a, b) -> a + b);
+            return total;
         }
 
-        public List<Map.Entry<AnimalType, Integer>> getAnimalsCountSorted() {
-            return null;
+        public Map<AnimalType, Integer> getAnimalsCount() {
+            Map<AnimalType, Integer> map = animals.stream()
+                    .collect(Collectors.toMap(animal -> animal.getType(), animal -> animal.getAnimalNo()));
+            return map;
+        }
+
+        public List<Animal> getAnimalsCountSorted(){
+            List<Animal> sortedAnimals = animals.stream()
+                    .sorted((a1,a2)->Integer.compare(a2.getAnimalNo(),a1.getAnimalNo()))
+                    .collect(Collectors.toList());
+            return sortedAnimals;
         }
     }
 
@@ -91,8 +107,9 @@ public class Exercise23 {
         zoo.addAnimals(AnimalType.SNAKE, 20);
 
         System.out.println(zoo.animals);
-        //System.out.println(zoo.getNumberOfAllAnimals());
-        //System.out.println(zoo.getAnimalsCountSorted());
+        System.out.println(zoo.getNumberOfAllAnimals());
+        System.out.println(zoo.getAnimalsCount());
+        System.out.println(zoo.getAnimalsCountSorted());
 
     }
 }
