@@ -63,6 +63,17 @@ public class Exercise13 {
         }
 
         public Exercise12.Car getCarWithAtLeast3Producer() {
+            Optional<Exercise12.Car> possibleCar = carList.stream()
+                    .filter(car -> car.getManufacturerList().size()>=3)
+                    .findFirst();
+            return possibleCar.get();
+        }
+
+        static enum SortingMode {
+            ASC,DESC;
+        }
+
+        public List<Exercise12.Car> getSortedCarListByYearOfManufactured(SortingMode mode){
             //TO DO
             return null;
         }
@@ -110,6 +121,9 @@ public class Exercise13 {
 
         System.out.println("Cheapest Car");
         System.out.println(carService.getCheapestCar());
+
+        System.out.println("Sorted By Year of Manufactured");
+        System.out.println(carService.getSortedCarListByYearOfManufactured(CarService.SortingMode.DESC));
 
     }
 }
