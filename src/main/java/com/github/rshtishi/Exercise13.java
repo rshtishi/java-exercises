@@ -38,6 +38,13 @@ public class Exercise13 {
         }
 
         public List<Exercise12.Car> getCarsFilteredByYearOfManufactuer(int yearOfManufactuer) {
+            List<Exercise12.Car> carsBeforeYearX = carList.stream()
+                    .filter(c -> c.getYearOfManufacture() <= yearOfManufactuer)
+                    .collect(Collectors.toList());
+            return carsBeforeYearX;
+        }
+
+        public Exercise12.Car getMostExpensiveCar() {
             // TO DO
             return null;
         }
@@ -76,6 +83,12 @@ public class Exercise13 {
 
         System.out.println("V12 car list");
         System.out.println(carService.getCarsWithV12Engine());
+
+        System.out.println("Cars before year x");
+        System.out.println(carService.getCarsFilteredByYearOfManufactuer(2012));
+
+        System.out.println("Most Expensive Car");
+        System.out.println(carService.getMostExpensiveCar());
 
     }
 }
