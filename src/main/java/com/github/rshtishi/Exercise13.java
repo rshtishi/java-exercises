@@ -45,13 +45,24 @@ public class Exercise13 {
         }
 
         public Exercise12.Car getMostExpensiveCar() {
+            Comparator<Exercise12.Car> sortByPriceAsc = (c1, c2) -> Double.compare(c1.getPrice(), c2.getPrice());
             List<Exercise12.Car> sortedCarList = carList.stream()
-                    .sorted( (c1,c2) -> Double.compare(c2.getPrice(),c1.getPrice()))
+                    .sorted(sortByPriceAsc.reversed())
                     .collect(Collectors.toList());
-            return sortedCarList.get(0);
+            //return sortedCarList.get(0);
+            return carList.stream().max(sortByPriceAsc).get();
         }
 
-        public Exercise12.Car getCheapestCar(){
+        public Exercise12.Car getCheapestCar() {
+            Comparator<Exercise12.Car> sortedByPriceAsc = (c1, c2) -> Double.compare(c1.getPrice(), c2.getPrice());
+            List<Exercise12.Car> sortedCarList = carList.stream()
+                    .sorted(sortedByPriceAsc)
+                    .collect(Collectors.toList());
+            //return sortedCarList.get(0);
+            return carList.stream().min(sortedByPriceAsc).get();
+        }
+
+        public Exercise12.Car getCarWithAtLeast3Producer() {
             //TO DO
             return null;
         }
