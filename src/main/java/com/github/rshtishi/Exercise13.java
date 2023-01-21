@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static com.github.rshtishi.Exercise13.CarService.ComparisonType.*;
+
 public class Exercise13 {
 
     static class CarService {
@@ -97,9 +99,31 @@ public class Exercise13 {
             return carsManufactueredBy;
         }
 
-        public List<Exercise12.Car> getCarListWithManufactuerYearOfEstablishment(int yearOfEstablishment){
-            //TO DO
-            return null;
+        static enum ComparisonType {
+            LT, LTE, EQ, GT, GTE, NEQ;
+        }
+
+        public List<Exercise12.Car> getCarListWithManufactuerYearOfEstablishment(int yearOfEstablishment,ComparisonType comparisonType){
+            List<Exercise12.Car> carListFiltered = carList.stream()
+                    .filter(c -> filteredByManufactuereYearOfEstablishment(c,yearOfEstablishment,comparisonType))
+                    .collect(Collectors.toList());
+
+            return carListFiltered;
+        }
+
+        private boolean filteredByManufactuereYearOfEstablishment(Exercise12.Car c, int yearOfEstablishment, ComparisonType comparisonType) {
+            Predicate<Exercise12.Manufacturer> comparator = null;
+            switch (comparisonType){
+                case GTE:
+                    comparator= (m )-> m.getYearOfEstablishment() >=yearOfEstablishment;
+                    break;
+                case GT:
+                    // TO DO
+                    break;
+                    // TO  DO
+                default:
+            }
+            return c.getManufacturerList().stream().anyMatch(comparator);
         }
 
     }
@@ -157,6 +181,6 @@ public class Exercise13 {
         System.out.println(carService.getCarListManufacturedBy(fordManufacture));
 
         System.out.println("Cars produced by  manufactuere with year of establishment");
-        System.out.println(carService.getCarListWithManufactuerYearOfEstablishment(1970));
+        System.out.println(carService.getCarListWithManufactuerYearOfEstablishment(2010, GTE));
     }
 }
