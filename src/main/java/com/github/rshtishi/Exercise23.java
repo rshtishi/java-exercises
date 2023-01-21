@@ -15,50 +15,84 @@ public class Exercise23 {
         SNAKE;
     }
 
+    static class Animal {
+
+        private AnimalType type;
+        private int animalNo;
+
+        public Animal(AnimalType type, int animalNo) {
+            this.type = type;
+            this.animalNo = animalNo;
+        }
+
+        public void incrementAnimalNo(int newAnimalsArrivedNo) {
+            this.animalNo = this.animalNo + newAnimalsArrivedNo;
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            if (other instanceof Animal) {
+                Animal animal = (Animal) other;
+                if (this.type == animal.getType()) {
+                    return true;
+                }
+                return false;
+            }
+
+            return false;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("{type:%s,animalNo:%d}", this.type, this.animalNo);
+        }
+
+        public AnimalType getType() {
+            return type;
+        }
+    }
+
     static class Zoo {
-        private Map<AnimalType, Integer> animals;
+        private Set<Animal> animals;
 
         public Zoo() {
-            animals = new HashMap();
+            animals = new HashSet<>();
         }
 
         public void addAnimals(AnimalType type, int num) {
-            if (this.animals.containsKey(type)) {
-                int previousValue = this.animals.get(type);
-                int value = previousValue + num;
-                this.animals.put(type, value);
+            Optional<Animal> possibleAnimal = animals.stream()
+                    .filter(animal -> animal.getType() == type)
+                    .findFirst();
+            if (possibleAnimal.isPresent()) {
+                Animal animal = possibleAnimal.get();
+                animal.incrementAnimalNo(num);
             } else {
-                this.animals.put(type, num);
+                animals.add(new Animal(type, num));
             }
         }
 
-        public int getNumberOfAllAnimals(){
-            return this.animals.entrySet()
-                    .stream()
-                    .map(e -> e.getValue())
-                    .reduce(0,(a,b)->a+b);
+        public int getNumberOfAllAnimals() {
+            return 0;
         }
 
-        public List<Map.Entry<AnimalType, Integer>> getAnimalsCountSorted(){
-            List<Map.Entry<AnimalType,Integer>> list =this.animals.entrySet().stream().sorted(
-                    (e1,e2)-> Integer.compare(e2.getValue(),e1.getValue())
-            ).collect(Collectors.toList());
-            return list;
+        public List<Map.Entry<AnimalType, Integer>> getAnimalsCountSorted() {
+            return null;
         }
     }
 
 
     public static void main(String[] args) {
+
         Zoo zoo = new Zoo();
-        zoo.addAnimals(AnimalType.TIGER,5);
-        zoo.addAnimals(AnimalType.LION,3);
-        zoo.addAnimals(AnimalType.MONKEY,15);
-        zoo.addAnimals(AnimalType.LION,2);
-        zoo.addAnimals(AnimalType.SNAKE,20);
+        zoo.addAnimals(AnimalType.TIGER, 5);
+        zoo.addAnimals(AnimalType.LION, 3);
+        zoo.addAnimals(AnimalType.MONKEY, 15);
+        zoo.addAnimals(AnimalType.LION, 2);
+        zoo.addAnimals(AnimalType.SNAKE, 20);
 
         System.out.println(zoo.animals);
-        System.out.println(zoo.getNumberOfAllAnimals());
-        System.out.println(zoo.getAnimalsCountSorted());
+        //System.out.println(zoo.getNumberOfAllAnimals());
+        //System.out.println(zoo.getAnimalsCountSorted());
 
     }
 }
