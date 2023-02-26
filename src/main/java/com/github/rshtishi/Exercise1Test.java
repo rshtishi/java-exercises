@@ -2,6 +2,7 @@ package com.github.rshtishi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,7 +10,10 @@ public class Exercise1Test {
 
     public static void sort(List<String> stringList){
 
-        List<String> sortedList = stringList.stream().sorted().collect(Collectors.toList());
+        Comparator<String> sortedAsc = (s1,s2) -> s1.compareTo(s2);
+        Comparator<String> sortedDesc = sortedAsc.reversed();
+
+        List<String> sortedList = stringList.stream().sorted(sortedDesc).collect(Collectors.toList());
         stringList.clear();
         stringList.addAll(sortedList);
     }
