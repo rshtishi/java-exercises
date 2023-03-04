@@ -2,12 +2,12 @@ package com.github.rshtishi;
 
 public class Exercise9Test {
 
-    public class Point2D {
+    public static class Point2D {
         // TO DO
 
     }
 
-    public class Circle {
+    public static class Circle {
         // TO DO
     }
 
