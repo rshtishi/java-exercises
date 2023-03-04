@@ -13,9 +13,11 @@ public class Exercise8Test {
 
         @Override
         public boolean validate(Parcel input) {
-            // To DO
-            // ADD CODE sum validator code
-            return false;
+            if (Integer.sum(Integer.sum(input.getxLength(), input.getyLength()), input.getZlength()) > 300) {
+                System.out.println("Error: validation rule sum of x,y,z<300 not abided");
+                return false;
+            }
+            return true;
         }
     }
 
@@ -23,24 +25,18 @@ public class Exercise8Test {
 
         @Override
         public boolean validate(Parcel input) {
-            // TO DO
-            // ADD CODE x,y,z, validator code
-            return false;
-        }
-    }
-
-    public static class ParcelValidator implements Validator {
-
-        @Override
-        public boolean validate(Parcel input) {
-            if (Integer.sum(Integer.sum(input.getxLength(), input.getyLength()), input.getZlength()) > 300) {
-                System.out.println("Error: validation rule sum of x,y,z<300 not abided");
-                return false;
-            }
             if (input.getxLength() < 30 || input.getyLength() < 30 || input.getZlength() < 30) {
                 System.out.println("Error: validation rule x,y,z<30 not abided");
                 return false;
             }
+            return true;
+        }
+    }
+
+    public static class ParcelWeightValidator implements Validator {
+
+        @Override
+        public boolean validate(Parcel input) {
             if (input.isExpress() == false && input.getWeight() > 30) {
                 System.out.println("Error: validation rule when express is true weight is not <30");
                 return false;
@@ -93,7 +89,9 @@ public class Exercise8Test {
     public static void main(String[] args) {
 
 
-        List<Exercise8Test.Validator> validatorList = Arrays.asList(new ParcelSumValidator(), new ParcelDimensionSizeValidator(), new ParcelValidator());
+        List<Validator> validatorList = Arrays.asList(new ParcelSumValidator(),
+                new ParcelDimensionSizeValidator(),
+                new ParcelWeightValidator());
 
         Parcel validParcel = new Parcel(30, 30, 30, 10, true);
         System.out.println(validateParcel(validParcel,validatorList));
@@ -108,9 +106,11 @@ public class Exercise8Test {
     }
 
     public static boolean validateParcel(Parcel parcel, List<Validator> list) {
-        // TO DO
-        //validate parcel
-        // with all validators assigned to the list
-        return false;
+        for(Validator validator: list){
+            if(validator.validate(parcel)==false){
+                return false;
+            }
+        }
+        return true;
     }
 }
