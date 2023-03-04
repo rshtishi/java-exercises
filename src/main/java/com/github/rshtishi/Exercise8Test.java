@@ -33,11 +33,15 @@ public class Exercise8Test {
         }
     }
 
-    public static class ParcelExpressWeightValidator implements Validator{
+    public static class ParcelExpressWeightValidator implements Validator {
 
         @Override
         public boolean validate(Parcel input) {
-            return false;
+            if (input.isExpress == true && input.getWeight() > 15) {
+                System.out.println("Error: validation rule when express is false weight is not <15");
+                return false;
+            }
+            return true;
         }
     }
 
@@ -49,11 +53,6 @@ public class Exercise8Test {
                 System.out.println("Error: validation rule when express is true weight is not <30");
                 return false;
             }
-            if (input.isExpress == true && input.getWeight() > 15) {
-                System.out.println("Error: validation rule when express is false weight is not <15");
-                return false;
-            }
-
             return true;
         }
     }
@@ -103,20 +102,20 @@ public class Exercise8Test {
                 new ParcelWeightNotExpressValidator());
 
         Parcel validParcel = new Parcel(30, 30, 30, 10, true);
-        System.out.println(validateParcel(validParcel,validatorList));
+        System.out.println(validateParcel(validParcel, validatorList));
 
         Parcel invalidParcel1 = new Parcel(301, 0, 0, 0, true);
-        System.out.println(validateParcel(invalidParcel1,validatorList));
+        System.out.println(validateParcel(invalidParcel1, validatorList));
 
         Parcel invalidParcel2 = new Parcel(50, 0, 0, 0, true);
-        System.out.println(validateParcel(invalidParcel2,validatorList));
+        System.out.println(validateParcel(invalidParcel2, validatorList));
 
 
     }
 
     public static boolean validateParcel(Parcel parcel, List<Validator> list) {
-        for(Validator validator: list){
-            if(validator.validate(parcel)==false){
+        for (Validator validator : list) {
+            if (validator.validate(parcel) == false) {
                 return false;
             }
         }
