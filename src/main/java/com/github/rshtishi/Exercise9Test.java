@@ -2,7 +2,29 @@ package com.github.rshtishi;
 
 public class Exercise9Test {
 
-    public static class Point2D {
+    public static class MoveDirection {
+        private double dx;
+        private double dy;
+
+        public MoveDirection(double dx, double dy) {
+            this.dx = dx;
+            this.dy = dy;
+        }
+
+        public double getDx() {
+            return dx;
+        }
+
+        public double getDy() {
+            return dy;
+        }
+    }
+
+    public static interface Movable {
+        void move(MoveDirection direction);
+    }
+
+    public static class Point2D implements Movable {
         private double x;
         private double y;
 
@@ -26,9 +48,20 @@ public class Exercise9Test {
         public void setY(double y) {
             this.y = y;
         }
+
+        @Override
+        public void move(MoveDirection direction) {
+            this.x = this.x + direction.getDx();
+            this.y = this.y + direction.getDy();
+        }
+
+        @Override
+        public String toString() {
+            return String.format("Point[x:%f,y:%f]", x, y);
+        }
     }
 
-    public static class Circle {
+    public static class Circle implements Movable {
 
         private static final double PI = 3.14;
         private Point2D center;
@@ -58,6 +91,17 @@ public class Exercise9Test {
             double radius = calculateRadius();
             return PI * Math.pow(radius, 2);
         }
+
+        @Override
+        public void move(MoveDirection direction) {
+            this.center.move(direction);
+            this.point.move(direction);
+        }
+
+        @Override
+        public String toString() {
+            return String.format("Circle{center:%s,point:%s}", center.toString(), point.toString());
+        }
     }
 
 
@@ -67,5 +111,11 @@ public class Exercise9Test {
         System.out.println(circle.getRadius());
         System.out.println(circle.getPerimeter());
         System.out.println(circle.getArea());
+        System.out.println(circle);
+        circle.move(new MoveDirection(2, 2));
+        System.out.println(circle.getRadius());
+        System.out.println(circle.getPerimeter());
+        System.out.println(circle.getArea());
+        System.out.println(circle);
     }
 }
