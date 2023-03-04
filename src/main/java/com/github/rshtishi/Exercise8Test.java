@@ -33,7 +33,15 @@ public class Exercise8Test {
         }
     }
 
-    public static class ParcelWeightValidator implements Validator {
+    public static class ParcelExpressWeightValidator implements Validator{
+
+        @Override
+        public boolean validate(Parcel input) {
+            return false;
+        }
+    }
+
+    public static class ParcelWeightNotExpressValidator implements Validator {
 
         @Override
         public boolean validate(Parcel input) {
@@ -91,7 +99,8 @@ public class Exercise8Test {
 
         List<Validator> validatorList = Arrays.asList(new ParcelSumValidator(),
                 new ParcelDimensionSizeValidator(),
-                new ParcelWeightValidator());
+                new ParcelExpressWeightValidator(),
+                new ParcelWeightNotExpressValidator());
 
         Parcel validParcel = new Parcel(30, 30, 30, 10, true);
         System.out.println(validateParcel(validParcel,validatorList));
