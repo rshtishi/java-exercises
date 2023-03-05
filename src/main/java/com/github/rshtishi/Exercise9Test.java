@@ -51,13 +51,13 @@ public class Exercise9Test {
 
         @Override
         public void move(MoveDirection direction) {
-            this.x = this.x + direction.getDx();
-            this.y = this.y + direction.getDy();
+            x = x + direction.getDx();
+            y = y + direction.getDy();
         }
 
         @Override
         public String toString() {
-            return String.format("Point[x:%f,y:%f]", x, y);
+            return String.format("Point2D{x:%f,y:%f}", x, y);
         }
     }
 
