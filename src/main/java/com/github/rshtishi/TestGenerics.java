@@ -65,7 +65,7 @@ public class TestGenerics {
 
         //return the string, Name: Rando, Age:30
         BiFunction<String, Integer, String> biFunction = null;
-        System.out.println(biFunction.apply("Rando", 30);
+        System.out.println(biFunction.apply("Rando", 30));
 
         //increase number with 1
         UnaryOperator<Integer> unaryOperator = null;
