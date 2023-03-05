@@ -20,6 +20,10 @@ public class Exercise9Test {
         }
     }
 
+    public static interface Resizable{
+        void resize(double resizeFactor);
+    }
+
     public static interface Movable {
         void move(MoveDirection direction);
     }
@@ -61,7 +65,7 @@ public class Exercise9Test {
         }
     }
 
-    public static class Circle implements Movable {
+    public static class Circle implements Movable, Resizable {
 
         private static final double PI = 3.14;
         private Point2D center;
@@ -102,12 +106,21 @@ public class Exercise9Test {
         public String toString() {
             return String.format("Circle{center:%s,point:%s}", center.toString(), point.toString());
         }
+
+        @Override
+        public void resize(double resizeFactor) {
+            double dx=(point.getX()*resizeFactor)-point.getX();
+            double dy=(point.getY()*resizeFactor)-point.getY();
+            MoveDirection direction = new MoveDirection(dx,dy);
+            point.move(direction);
+        }
     }
+
 
 
     public static void main(String[] args) {
 
-        Circle circle = new Circle(new Point2D(1, 1), new Point2D(2, 2));
+        Circle circle = new Circle(new Point2D(0, 0), new Point2D(4, 0));
         System.out.println(circle.getRadius());
         System.out.println(circle.getPerimeter());
         System.out.println(circle.getArea());
@@ -117,5 +130,9 @@ public class Exercise9Test {
         System.out.println(circle.getPerimeter());
         System.out.println(circle.getArea());
         System.out.println(circle);
+        System.out.println(circle.getRadius());
+        circle.resize(0.5);
+        System.out.println(circle);
+        System.out.println(circle.getRadius());
     }
 }
