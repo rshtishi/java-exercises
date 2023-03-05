@@ -219,6 +219,13 @@ public class Exercise13Test {
             Predicate<Car> predicate = (Car car) -> car.getEngineType()==engineType;
             return carList.stream().filter(predicate).collect(Collectors.toList());
         }
+
+        public List<Car> getCarsProducedBeforeYear(int year){
+            Predicate<Car> predicate = (Car car)-> car.getYearOfManufacture()<year;
+            return carList.stream().filter(predicate).collect(Collectors.toList());
+        }
+
+
     }
 
     public static void main(String[] agrs) {
@@ -249,5 +256,7 @@ public class Exercise13Test {
 
         List<Car> v12CarList = carService.getCarsByEngineType(EngineType.V12);
         System.out.println(v12CarList);
+        List<Car> before2016CarList = carService.getCarsProducedBeforeYear(2016);
+        System.out.println(before2016CarList);
     }
 }
