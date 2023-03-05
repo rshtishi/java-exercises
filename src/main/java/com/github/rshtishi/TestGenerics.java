@@ -28,6 +28,11 @@ public class TestGenerics {
         };
         System.out.println(doubleSupplier.get());
 
+        // 3 WAY
+        Supplier<String> s1 = () -> "A";
+        Supplier<String> s2 = () -> { return "A";};
+        System.out.println(s1.get());
+        System.out.println(s2.get());
 
     }
 }
