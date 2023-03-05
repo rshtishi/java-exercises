@@ -3,6 +3,9 @@ package com.github.rshtishi;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Exercise13Test {
 
@@ -68,8 +71,8 @@ public class Exercise13Test {
         }
 
         @Override
-        public String toString(){
-            return String.format("Manufacturer(name=%s, yearOfEstablishment=%d, country=%s)",name,yearOfEstablishment,country);
+        public String toString() {
+            return String.format("Manufacturer(name=%s, yearOfEstablishment=%d, country=%s)", name, yearOfEstablishment, country);
         }
     }
 
@@ -169,7 +172,7 @@ public class Exercise13Test {
             boolean modelEquals = (this.model == null && other.getModel() == null) || (this.model != null && this.model.equals(other.getModel()));
             boolean priceEquals = this.price == other.getPrice();
             boolean yearOfManufactureEquals = this.yearOfManufacture == other.getYearOfManufacture();
-            boolean manufacturerListEquals = (this.manufacturerList == null && other.getManufacturerList() == null) || (this.manufacturerList!=null && this.manufacturerList.equals(other.getManufacturerList()));
+            boolean manufacturerListEquals = (this.manufacturerList == null && other.getManufacturerList() == null) || (this.manufacturerList != null && this.manufacturerList.equals(other.getManufacturerList()));
             boolean engineTypeEquals = (this.engineType == null && other.getEngineType() == null) || (this.engineType.equals(other.getEngineType()));
 
             return nameEquals && modelEquals && priceEquals && yearOfManufactureEquals && manufacturerListEquals && engineTypeEquals;
@@ -203,11 +206,22 @@ public class Exercise13Test {
         public void add(Car car) {
             this.carList.add(car);
         }
+
         public void remove(Car car) {
             this.carList.remove(car);
         }
+
+        public List<Car> getList() {
+            return carList;
+        }
+
+        public List<Car> getCarsByEngineType(EngineType engineType){
+            Predicate<Car> predicate = (Car car) -> car.getEngineType()==engineType;
+            return carList.stream().filter(predicate).collect(Collectors.toList());
+        }
     }
-    public static void  main(String[] agrs){
+
+    public static void main(String[] agrs) {
 
         CarService carService = new CarService();
 
@@ -233,5 +247,7 @@ public class Exercise13Test {
         carService.add(new Car("VolfWagen", "Golf", 25000, 2020, Arrays.asList(VWManufacturer), EngineType.V8));
         carService.add(new Car("VolfWagen", "Golf", 15000, 2018, Arrays.asList(VWManufacturer), EngineType.V8));
 
+        List<Car> v12CarList = carService.getCarsByEngineType(EngineType.V12);
+        System.out.println(v12CarList);
     }
 }
