@@ -22,12 +22,21 @@ public class TestList {
 
         System.out.println();
         printNamesThatHaveLessThanFourCharacters(list); //implement method
+        printNamesThatStartWithM(list);//implement method
 
     }
 
+    private static void printNamesThatStartWithM(List<String> list) {
+        //TO DO
+        //implement method
+    }
+
     private static void printNamesThatHaveLessThanFourCharacters(List<String> list) {
-        // TO DO
-        //print all names that size does not exceed 4 characters
+        for (String el : list) {
+            if (el.length() <= 4) {
+                System.out.println(el);
+            }
+        }
     }
 
     private static void printFrequencyByName(List<String> list) {
