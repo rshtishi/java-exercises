@@ -20,18 +20,30 @@ public class TestList {
         printAllNames(list);
         printFrequencyByName(list); //implement method
 
+        System.out.println();
+        printNamesThatHaveLessThanFourCharacters(list); //implement method
+
+    }
+
+    private static void printNamesThatHaveLessThanFourCharacters(List<String> list) {
+        // TO DO
+        //print all names that size does not exceed 4 characters
     }
 
     private static void printFrequencyByName(List<String> list) {
         // TO DO
-        Map<String,Integer> freqByName = new HashMap<>();
-        for(String el: list){
-            //check if element is in map
-                //if element is  not present then add name with value 1
-                //if element is present, increase the current value with 1
+        Map<String, Integer> freqByName = new HashMap<>();
+        for (String el : list) {
+            if (freqByName.containsKey(el)) {
+                int curVal = freqByName.get(el);
+                curVal++;
+                freqByName.put(el, curVal);
+            } else {
+                freqByName.put(el, 1);
+            }
         }
-        for(Map.Entry<String,Integer> entry: freqByName.entrySet()){
-            System.out.println();//String format, entry.getKey(), entry.getValue()
+        for (Map.Entry<String, Integer> entry : freqByName.entrySet()) {
+            System.out.println(String.format("Name: %s, Frequency: %d", entry.getKey(), entry.getValue()));
         }
 
     }
@@ -43,16 +55,16 @@ public class TestList {
     }
 
     private static void printEvenIndexNames(List<String> list) {
-        for(int i =0;i<list.size();i++){
-            if(i%2==0){
-                System.out.println(String.format("Name: %s",list.get(i)));
+        for (int i = 0; i < list.size(); i++) {
+            if (i % 2 == 0) {
+                System.out.println(String.format("Name: %s", list.get(i)));
             }
         }
     }
 
     private static void print(Collection<String> list) {
-        for(String el:list){
-            System.out.println(String.format("Name: %s",el));
+        for (String el : list) {
+            System.out.println(String.format("Name: %s", el));
         }
     }
 
