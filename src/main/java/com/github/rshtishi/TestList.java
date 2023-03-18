@@ -10,11 +10,22 @@ public class TestList {
     public static void main(String[] args) {
 
         List<String> list = new ArrayList<>();
-        init(list);// initilize list with 5 names
-        print(list);// print all names in the list
+        init(list);
+        print(list);
         System.out.println();
-        printEvenIndexNames(list);//print all names in that are in even index
+        printEvenIndexNames(list);
 
+        System.out.println();
+        init(list);
+        print(list);
+        System.out.println();
+        printAllNames(list); //implement method
+
+    }
+
+    private static void printAllNames(List<String> list) {
+        // TO DO
+        // print each name only once
     }
 
     private static void printEvenIndexNames(List<String> list) {
