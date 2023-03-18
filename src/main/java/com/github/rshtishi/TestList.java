@@ -1,8 +1,6 @@
 package com.github.rshtishi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 
 public class TestList {
@@ -19,13 +17,29 @@ public class TestList {
         init(list);
         print(list);
         System.out.println();
-        printAllNames(list); //implement method
+        printAllNames(list);
+        printFrequencyByName(list); //implement method
+
+    }
+
+    private static void printFrequencyByName(List<String> list) {
+        // TO DO
+        Map<String,Integer> freqByName = new HashMap<>();
+        for(String el: list){
+            //check if element is in map
+                //if element is  not present then add name with value 1
+                //if element is present, increase the current value with 1
+        }
+        for(Map.Entry<String,Integer> entry: freqByName.entrySet()){
+            System.out.println();//String format, entry.getKey(), entry.getValue()
+        }
 
     }
 
     private static void printAllNames(List<String> list) {
-        // TO DO
-        // print each name only once
+        Set<String> set = new HashSet<>();
+        set.addAll(list);
+        print(set);
     }
 
     private static void printEvenIndexNames(List<String> list) {
@@ -36,7 +50,7 @@ public class TestList {
         }
     }
 
-    private static void print(List<String> list) {
+    private static void print(Collection<String> list) {
         for(String el:list){
             System.out.println(String.format("Name: %s",el));
         }
