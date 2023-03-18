@@ -1,6 +1,7 @@
 package com.github.rshtishi;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 
 public class TestList {
@@ -21,23 +22,26 @@ public class TestList {
         printFrequencyByName(list); //implement method
 
         System.out.println();
-        printNamesThatHaveLessThanFourCharacters(list); //implement method
-        printNamesThatStartWithM(list);//implement method
+        Predicate<String> predicate1 = (s) -> s.length() <= 4;
+        Predicate<String> predicate2 = (s) -> {
+            return s.startsWith("M");
+        };
+        Predicate<String> predicate3 = predicate1.or(predicate2).negate();
+        printNamesByPredicate(list, predicate1);
+        printNamesByPredicate(list, predicate2);
+        printNamesByPredicate(list, predicate3);
+
 
     }
 
-    private static void printNamesThatStartWithM(List<String> list) {
-        //TO DO
-        //implement method
-    }
-
-    private static void printNamesThatHaveLessThanFourCharacters(List<String> list) {
+    private static void printNamesByPredicate(List<String> list, Predicate<String> predicate) {
         for (String el : list) {
-            if (el.length() <= 4) {
+            if (predicate.test(el)) {
                 System.out.println(el);
             }
         }
     }
+
 
     private static void printFrequencyByName(List<String> list) {
         // TO DO
